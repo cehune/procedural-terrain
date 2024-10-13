@@ -15,6 +15,7 @@ void processInput(GLFWwindow* window);
 //void renderHeightmap(GLuint heightmapTextureID);
 
 // settings
+int Perlin::p[Perlin::GRADIENT_COUNT * 2];
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
