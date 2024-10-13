@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+
+
+procedural-terrain\procedural-terrain.vcxproj.user
+procedural-terrain\procedural-terrain.vcxproj.filters
+procedural-terrain\procedural-terrain.vcxproj
+procedural-terrain\procedural-terrain.sln
+procedural-terrain\x64\Debug
