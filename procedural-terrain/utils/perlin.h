@@ -79,15 +79,32 @@ public:
                     val = -1.0f;
 
                 // Normalize to [0, 1] and store in textureData
-                //.//textureData.push_back(x)
-                textureData.push_back(static_cast<float>((val + 1.0) / 2.0));
+                textureData.push_back((i - length / 2.0f) / 5);
+                textureData.push_back(static_cast<float>(((val + 1.0) / 2.0) * 20));
+                textureData.push_back((j - width / 2.0f)/5);
             }
         }
         return textureData;
     }
 
-    std::vector<float> generateHeightMapIndices(int width, int height, float grid_size) {
-        std::vector<float> indices;
+    std::vector<unsigned int> generateHeightMapIndices(int width, int length) {
+        std::vector<unsigned int> indices;
+
+        for (int i = 0; i < length - 1; ++i) {
+            for (int j = 0; j < width; ++j) {
+                // Add vertex from current row
+                indices.push_back(i * width + j);
+                // Add vertex from next row
+                indices.push_back((i + 1) * width + j);
+            }
+
+            // Add degenerate triangles (if not the last row)
+            if (i < length - 2) {
+                // Add two degenerate vertices (the last and first vertices of the next row)
+                indices.push_back((i + 1) * width + (width - 1));
+                indices.push_back((i + 1) * width);
+            }
+        }
         return indices;
     }
 
