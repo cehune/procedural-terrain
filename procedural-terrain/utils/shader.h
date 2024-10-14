@@ -113,7 +113,7 @@ public:
 	*/
 
 	void use() {
-		std::cout << "Using Shader";
+		//std::cout << "Using Shader";
 		glUseProgram(shaderProgramID);
 	}
 
@@ -143,14 +143,14 @@ public:
 
 	void glUniformMat4(std::string loc, const glm::mat4& mat, GLsizei count = 1, GLboolean transpose = GL_FALSE) {
 		// Sets a Uniform for 4D matrix
-		std::cout << "Setting new uniform via custom func: shader.glUniformMat4()\n";
+		//std::cout << "Setting new uniform via custom func: shader.glUniformMat4()\n";
 		GLint location = validateLocation(loc.c_str());
 		glUniformMatrix4fv(location, count, transpose, glm::value_ptr(mat));
 	}
 
 	void glUniformMat4(std::string loc, float x, float y, float z, float w) {
 		// Sets a Uniform for 4D matrix
-		std::cout << "Setting new uniform via custom func: shader.glUniformMat4()\n";
+		//std::cout << "Setting new uniform via custom func: shader.glUniformMat4()\n";
 		GLint location = validateLocation(loc.c_str());
 		glUniform4f(location, x, y, z, w);
 	}
@@ -164,7 +164,7 @@ public:
 
 	void glUniformMat3(std::string loc, float x, float y, float z) {
 		// Sets a Uniform for 3D matrix
-		std::cout << "Setting new uniform via custom func: shader.glUniformMat3()\n";
+		//std::cout << "Setting new uniform via custom func: shader.glUniformMat3()\n";
 		GLint location = validateLocation(loc.c_str());
 		glUniform3f(location, x, y, z);
 	}
@@ -173,7 +173,7 @@ public:
 		/* Purely a function for additional logging*/
 		GLint location = glGetUniformLocation(shaderProgramID, loc.c_str());
 		if (location == -1) {
-			std::cerr << "Uniform '" << loc << "' not found in shader program!" << std::endl;
+			//std::cerr << "Uniform '" << loc << "' not found in shader program!" << std::endl;
 			return -1;
 		}
 		return location;

@@ -11,8 +11,11 @@
 
 class Perlin {
 public:
-    Perlin() {
+    Perlin(float xscale=8.0f, float yscale=50.0f, float zscale = 8.0f) {
         initPermutation(); // Initialize the permutation array in the constructor
+        x_scale = xscale;
+        y_scale = yscale;
+        z_scale = zscale;
     }
 
     static double noise(double x, double y, double z) {
@@ -66,7 +69,7 @@ public:
                 for (int o = 0; o < 12; o++) {
                     val += Perlin::noise(i * freq / grid_size, j * freq / grid_size, z) * amp;
                     freq *= 2.0f;  // Increase frequency
-                    amp /= 1.7f;   // Decrease amplitude
+                    amp /= 2.0f;   // Decrease amplitude
                 }
 
                 // Adjust contrast
@@ -79,9 +82,9 @@ public:
                     val = -1.0f;
 
                 // Normalize to [0, 1] and store in textureData
-                textureData.push_back((i - length / 2.0f) / 5);
-                textureData.push_back(static_cast<float>(((val + 1.0) / 2.0) * 20));
-                textureData.push_back((j - width / 2.0f)/5);
+                textureData.push_back((i - length / 2.0f) / x_scale);
+                textureData.push_back(static_cast<float>(((val + 1.0) / 2.0) * y_scale));
+                textureData.push_back((j - width / 2.0f) / z_scale);
             }
         }
         return textureData;
@@ -109,6 +112,13 @@ public:
     }
 
 private:
+    static const int GRADIENT_COUNT = 512;
+    static int p[GRADIENT_COUNT * 2];
+    static int permutation[256];
+    float x_scale;
+    float y_scale;
+    float z_scale;
+
     static double fade(double t) {
         return t * t * t * (t * (t * 6 - 15) + 10);
     }
@@ -123,10 +133,6 @@ private:
         double v = h < 4 ? y : (h == 12 || h == 14 ? x : z);
         return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
     }
-
-    static const int GRADIENT_COUNT = 512;
-    static int p[GRADIENT_COUNT * 2];
-    static int permutation[256];
 
     static void initPermutation() {
         for (int i = 0; i < 256; i++) {
